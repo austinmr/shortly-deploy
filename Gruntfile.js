@@ -3,6 +3,13 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: ['app/**/*.js', 'app/*.js', 'lib/*.js', 'public/*/*.js', 'views/partials/*.js', 'views/*.js', 'server-config.js', 'server.js'],
+        dest: 'public/dist/built.js',
+      }, 
     },
 
     mochaTest: {
@@ -21,6 +28,11 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      my_target: {
+        files: {
+          'public/dest/build.js': ['app/**/*.js', 'app/*.js', 'lib/*.js', 'public/*/*.js', 'views/partials/*.js', 'views/*.js', 'server-config.js', 'server.js'],
+        }
+      }
     },
 
     eslint: {
@@ -51,6 +63,12 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+      },
+      gt: {
+        command: 'git status'
+      },
+      stackPaper: {
+        command: 'git push youngMoney master'
       }
     },
   });
