@@ -23,17 +23,22 @@ MongoClient.connect(url, function(err, db) {
     console.log('We had an error: ', err); 
   } else {
     console.log('Established a mongoDB database at ', url); 
-    console.log('Writing some user data now to collection "users"!'); 
   }
 }); 
 
 mongoose.connect('mongodb://localhost/testDatabase');
 var db = mongoose.connection;
+
+// Band = db.model('band-promises', { name: String });
+
 db.on('error', console.error.bind(console, 'connection error:'));
+
+// db.on('open', function() {
+//   assert.equal(Band.collection.findOne().constructor, require('bluebird'));
+// });
 
 db.once('open', function() {
   console.log('We connected to MongoDB / Mongoose'); 
-  
 });
 
 
@@ -54,7 +59,6 @@ app.use(session({
 
 app.use(function(req, res, next) {
   req.db = db;
-  // console.log('This route has acess to the following MongoDB database');
   next();
 });
 
